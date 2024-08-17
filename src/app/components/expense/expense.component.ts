@@ -41,23 +41,34 @@ export class ExpenseComponent implements OnInit {
     });
   }
 
-  submitForm() {
-    this.expenseService.postExpense(this.expenseForm.value).subscribe(
-      (res) => {
-        this.message.success('Expense posted successfully', {
-          nzDuration: 5000,
-        });
-      },
-      (error) => {
-        this.message.error('Error while posting expense', { nzDuration: 5000 });
-      }
-    );
-  }
-
   getAllExpenses() {
     this.expenseService.getAllExpenses().subscribe((res) => {
       console.log(res);
       this.expenses = res;
     });
   }
+
+  submitForm() {
+    this.expenseService.postExpense(this.expenseForm.value).subscribe(
+      (res) => {
+        this.message.success('Gasto publicado correctamente', {
+          nzDuration: 5000,
+        });
+      },
+      (error) => {
+        this.message.error('Error al registrar gastos', { nzDuration: 5000 });
+      }
+    );
+  }
+
+  deleteExpense(id: number) {
+    this.expenseService.deleteExpense(id).subscribe(res => {
+      this.message.success("Gasto eliminado con éxito", {nzDuration: 5000});
+      this.getAllExpenses();
+    }, error => {
+      this.message.error("Error al eliminar gasto", {nzDuration: 5000})
+    })
+  }
+
+  
 }
