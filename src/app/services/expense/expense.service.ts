@@ -15,9 +15,18 @@ export class ExpenseService {
     return this.http.get(BASIC_URL + 'api/v1/expense/all');
   }
 
+  getExpenseById(id: number): Observable<any> {
+    return this.http.get(BASIC_URL + `api/v1/expense/${id}`);
+  }
+
   // Crear un nuevo gasto
   postExpense(expenseDTO: any): Observable<any> {
     return this.http.post(BASIC_URL + 'api/v1/expense', expenseDTO);
+  }
+
+  // Actualizar un gasto
+  updateExpense(id: number, expenseDTO: any): Observable<any> {
+    return this.http.put(BASIC_URL + `api/v1/expense/${id}`, expenseDTO);
   }
 
   // Eliminar un gasto

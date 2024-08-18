@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ExpenseService } from '../../services/expense/expense.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-expense',
@@ -27,7 +28,8 @@ export class ExpenseComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private expenseService: ExpenseService,
-    private message: NzMessageService
+    private message: NzMessageService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -61,14 +63,19 @@ export class ExpenseComponent implements OnInit {
     );
   }
 
-  deleteExpense(id: number) {
-    this.expenseService.deleteExpense(id).subscribe(res => {
-      this.message.success("Gasto eliminado con éxito", {nzDuration: 5000});
-      this.getAllExpenses();
-    }, error => {
-      this.message.error("Error al eliminar gasto", {nzDuration: 5000})
-    })
+  updateExpense(id: number) {
+    this.router.navigateByUrl(`/expense/${id}/edit`);
   }
 
-  
+  deleteExpense(id: number) {
+    this.expenseService.deleteExpense(id).subscribe(
+      (res) => {
+        this.message.success('Gasto eliminado con éxito', { nzDuration: 5000 });
+        this.getAllExpenses();
+      },
+      (error) => {
+        this.message.error('Error al eliminar gasto', { nzDuration: 5000 });
+      }
+    );
+  }
 }
