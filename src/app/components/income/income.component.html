@@ -38,5 +38,30 @@
         </form>
       </nz-card>
     </div>
+
+    <div nz-col nzFlex="3" style="margin-left: 20px;">
+      <nz-card nzType="inner" style="margin-top: 16px;" nzTitle="Ingresos pasados">
+        <div nz-card-grid style="width: 100%;" *ngFor="let income of incomes">
+          <div nz-row>
+            <div nz-col nzSpan="18">
+              <span nz-icon nzType="message" nzTheme="outline"></span> {{income.title}}
+              -
+              <span nz-icon nzType="dollar" nzTheme="outline"></span> {{income.amount}}
+              -
+              <span nz-icon nzType="clock-circle" nzTheme="outline"></span> {{income.date}}
+              -
+              <span nz-icon nzType="comment" nzTheme="outline"></span> {{income.category}}
+              -
+            </div>
+            <div nz-col nzSpan="6" style="font-size: 15px;">
+              <span nz-icon nzType="edit" nzTheme="fill" style="color: blue;"
+                routerLink="/income/{{income.id}}/edit"></span>
+              <span nz-icon nzType="delete" nzTheme="fill" style="margin-left: 10px; color: red;"
+                (click)="deleteIncome(income.id)"></span>
+            </div>
+          </div>
+        </div>
+      </nz-card>
+    </div>
   </div>
 </div>

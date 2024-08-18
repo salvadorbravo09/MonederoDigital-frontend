@@ -21,6 +21,7 @@ export class IncomeComponent implements OnInit {
     'Youtube',
     'Otro',
   ];
+  incomes: any;
 
   constructor(
     private fb: FormBuilder,
@@ -30,6 +31,7 @@ export class IncomeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getAllIncomes();
     this.incomeForm = this.fb.group({
       title: [null, Validators.required],
       amount: [null, [Validators.required]],
@@ -39,11 +41,29 @@ export class IncomeComponent implements OnInit {
     });
   }
 
+  getAllIncomes() {
+    this.incomeService.getAllIncomes().subscribe(res => {
+      this.incomes = res;
+    }, error => {
+      this.message.error("Error fetching incomes", { nzDuration: 5000 });
+    })
+  }
+
   submitForm(): void {
     this.incomeService.postIncome(this.incomeForm.value).subscribe(res => {
       this.message.success("Income posted succesfully", { nzDuration: 5000 })
+      this.getAllIncomes();
     }, error => {
       this.message.error("Error while posting income", { nzDuration: 5000 })
+    })
+  }
+
+  deleteIncome(id: number) {
+    this.incomeService.deleteIncome(id).subscribe(res => {
+      this.message.success("Income deleted succesfully", { nzDuration: 5000 })
+      this.getAllIncomes();
+    }, error => {
+      this.message.error("Error while deleteing income", { nzDuration: 5000 })
     })
   }
 }
