@@ -45,25 +45,25 @@ export class IncomeComponent implements OnInit {
     this.incomeService.getAllIncomes().subscribe(res => {
       this.incomes = res;
     }, error => {
-      this.message.error("Error fetching incomes", { nzDuration: 5000 });
+      this.message.error("Error al buscar los ingresos", { nzDuration: 5000 });
     })
   }
 
   submitForm(): void {
     this.incomeService.postIncome(this.incomeForm.value).subscribe(res => {
-      this.message.success("Income posted succesfully", { nzDuration: 5000 })
+      this.message.success("Ingreso creado correctamente", { nzDuration: 5000 })
       this.getAllIncomes();
     }, error => {
-      this.message.error("Error while posting income", { nzDuration: 5000 })
+      this.message.error("Errro al crear un nuevo ingreso", { nzDuration: 5000 })
     })
   }
 
   deleteIncome(id: number) {
     this.incomeService.deleteIncome(id).subscribe(res => {
-      this.message.success("Income deleted succesfully", { nzDuration: 5000 })
+      this.message.success("Ingreso eliminado correctamente", { nzDuration: 5000 })
       this.getAllIncomes();
     }, error => {
-      this.message.error("Error while deleteing income", { nzDuration: 5000 })
+      this.message.error("Error al eliminar un ingreso", { nzDuration: 5000 })
     })
   }
 }

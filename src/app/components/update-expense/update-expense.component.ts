@@ -52,17 +52,17 @@ export class UpdateExpenseComponent {
         this.expenseForm.patchValue(res);
       },
       (error) => {
-        this.message.error('Something went wrong.', { nzDuration: 5000 });
+        this.message.error('Ha ocurrido un error.', { nzDuration: 5000 });
       }
     );
   }
 
   submitForm() {
     this.expenseService.updateExpense(this.id, this.expenseForm.value).subscribe(res => {
-      this.message.success("Expense updated successfully", {nzDuration: 5000});
+      this.message.success("Gasto actualizado correctamente", {nzDuration: 5000});
       this.router.navigateByUrl("/expense");
     }, error => {
-      this.message.error("Error while updating expense", {nzDuration: 5000});
+      this.message.error("Error al actualizar un gasto", {nzDuration: 5000});
     })
   }
 }

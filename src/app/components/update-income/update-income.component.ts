@@ -49,16 +49,16 @@ export class UpdateIncomeComponent {
     this.incomeService.getIncomeById(this.id).subscribe(res => {
       this.incomeForm.patchValue(res);
     }, error => {
-      this.message.error("Something went wrong", { nzDuration: 5000 });
+      this.message.error("Ha ocurrido un error", { nzDuration: 5000 });
     })
   }
 
   submitForm() {
     this.incomeService.updateIncome(this.id, this.incomeForm.value).subscribe(res => {
-      this.message.success("Income updated succesfully", { nzDuration: 5000 });
+      this.message.success("Ingreso actualizado correctamente", { nzDuration: 5000 });
       this.router.navigateByUrl("/income")
     }, error => {
-      this.message.error("Error while updateing income", { nzDuration: 5000 });
+      this.message.error("Error al actualizar un ingreso", { nzDuration: 5000 });
     })
   }
 }
